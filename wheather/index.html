@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wheaher</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Météo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <h1>WELCOME</h1>
-  <input type="text" placeholder="CITY" value="city">
-  <input type="button" value="search" onclick="buttonClickGET()">
-  <p id="ZONE_METEO">hello</p>
+    <div class="weather-container">
+        <h1>Météo Actuelle</h1>
+        <div class="location">
+            <label for="city">Entrez la ville : </label>
+            <input type="text" id="city" placeholder="Ex. Paris">
+            <button id="get-weather">Obtenir la météo</button>
+        </div>
+        <div class="weather-info">
+            <p id="weather-description"></p>
+            <p id="temperature"></p>
+            <p id="humidity"></p>
+            <p id="wind-speed"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
