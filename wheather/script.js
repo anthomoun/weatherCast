@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-   const apiKey = "83416db8b679d0a70705732e7bfac023"; // Remplacez par votre clé API Weatherstack
+   const apiKey = "286743c7922441edb6a110823232510"; // Remplacez par votre clé wheatherAPI
     const getWeatherButton = document.getElementById("get-weather");
     const cityInput = document.getElementById("city");
     const weatherDescription = document.getElementById("weather-description");
+    const weatherIcon = document.getElementById("weather-icon");
     const temperature = document.getElementById("temperature");
     const humidity = document.getElementById("humidity");
     const windSpeed = document.getElementById("wind-speed");
@@ -10,23 +11,24 @@ document.addEventListener("DOMContentLoaded", function () {
     getWeatherButton.addEventListener("click", function () {
     const city = cityInput.value;
 
-      // Utilisez l'API Weatherstack pour obtenir les données météo
-    fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}`)
+      // Utilisez l'API weatherAPI pour obtenir les données météo
+    fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&query=${city}`)
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            if (data.current && data.current.weather_descriptions && data.current.weather_descriptions.length > 0) {
-                weatherDescription.textContent = `Conditions : ${data.current.weather_descriptions[0]}`;
+            if (data.current && data.current.condition) {
+                // weatherDescription.textContent = `Conditions : ${data.current.condition.text}`;
+                weatherIcon.src = `http:${data.current.condition.icon}`;
+                temperature.textContent = `Température : ${data.current.temp_c}°C`;
+                humidity.textContent = `Humidité : ${data.current.humidity}%`;
+                windSpeed.textContent = `Vitesse du vent : ${data.current.wind_kph} km/h`;
             } else {
                 weatherDescription.textContent = "Aucune donnée météo disponible.";
+                weatherIcon.src = ""; // Effacez l'icône en cas de données manquantes
+                temperature.textContent = "";
+                humidity.textContent = "";
+                windSpeed.textContent = "";
             }
-            // weatherDescription.textContent = `Conditions : ${data.current.weather_descriptions[0]}`;
-            temperature.textContent = `Température : ${data.current.temperature}°C`;
-            humidity.textContent = `Humidité : ${data.current.humidity}%`;
-            windSpeed.textContent = `Vitesse du vent : ${data.current.wind_speed} km/h`;
         })
-        .catch((error) => {
-            console.error("Erreur lors de la récupération des données météo : ", error);
-        });
+        })
     });
-});
